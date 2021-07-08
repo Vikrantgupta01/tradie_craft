@@ -1,4 +1,4 @@
-package com.viks.intuit.craft_tradie;
+package com.viks.intuit.craft.tradie;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

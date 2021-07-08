@@ -1,4 +1,4 @@
-package com.viks.intuit.craft_tradie.entity;
+package com.viks.intuit.craft.tradie.entity;
 
 
 import lombok.Data;
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "customer")
 @Data
-public class Customer {
+public class Contractor {
 
     @Id
     @GeneratedValue

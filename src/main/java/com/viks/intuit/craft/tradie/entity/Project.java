@@ -1,4 +1,4 @@
-package com.viks.intuit.craft_tradie.entity;
+package com.viks.intuit.craft.tradie.entity;
 
 import lombok.Data;
 

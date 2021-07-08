@@ -1,11 +1,10 @@
-package com.viks.intuit.craft_tradie.task;
+package com.viks.intuit.craft.tradie.service;
 
-import com.viks.intuit.craft_tradie.dao.ProjectRepository;
-import com.viks.intuit.craft_tradie.entity.Project;
-import com.viks.intuit.craft_tradie.entity.ProjectBid;
+import com.viks.intuit.craft.tradie.dao.ProjectRepository;
+import com.viks.intuit.craft.tradie.entity.Project;
+import com.viks.intuit.craft.tradie.entity.ProjectBid;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

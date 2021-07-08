@@ -1,11 +1,11 @@
-package com.viks.intuit.craft_tradie.config;
+package com.viks.intuit.craft.tradie.config;
 
-import com.viks.intuit.craft_tradie.JobCompletionNotificationListener;
-import com.viks.intuit.craft_tradie.entity.Project;
-import com.viks.intuit.craft_tradie.entity.ProjectBid;
-import com.viks.intuit.craft_tradie.task.ProjectProcessor;
-import com.viks.intuit.craft_tradie.task.ProjectReader;
-import com.viks.intuit.craft_tradie.task.ProjectWriter;
+import com.viks.intuit.craft.tradie.entity.ProjectBid;
+import com.viks.intuit.craft.tradie.listener.JobCompletionNotificationListener;
+import com.viks.intuit.craft.tradie.entity.Project;
+import com.viks.intuit.craft.tradie.service.ProjectProcessor;
+import com.viks.intuit.craft.tradie.service.ProjectReader;
+import com.viks.intuit.craft.tradie.service.ProjectWriter;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
