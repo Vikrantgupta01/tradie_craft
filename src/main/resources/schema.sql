@@ -23,11 +23,23 @@ CREATE TABLE project (
   foreign key (customer_id) references customer(id)
 );
 
-INSERT INTO customer (name) VALUES ('India');
-INSERT INTO project (title, description,start_date, end_date , customer_id, bid_expiry_date)
-VALUES ('test -11', 'test -11', now(), now(), 1, now());
--- customer
--- contractor
 
--- project ( winnerBIdId, customer id)
--- project _ bid ( bid and contacrtor id)
+CREATE TABLE project_bid (
+  id   BIGINT NOT NULL AUTO_INCREMENT,
+  bid_amount int NOT NULL,
+  project_id bigint  NOT NULL,
+  contractor_id bigint  NOT NULL,
+  PRIMARY KEY (id),
+  foreign key (contractor_id) references contractor(id),
+  foreign key (project_id) references project(id)
+);
+
+
+INSERT INTO customer (name) VALUES ('India');
+INSERT INTO contractor (name) VALUES ('contractor');
+INSERT INTO project (title, description,start_date, end_date , customer_id, bid_expiry_date)
+VALUES ('test -11', 'test -11', PARSEDATETIME('16:22', 'HH:mm'), PARSEDATETIME('16:22', 'HH:mm'), 1,
+PARSEDATETIME('08 Jul 2021, 17:59:58 AM','dd MMM yyyy, hh:mm:ss a','en'));
+INSERT INTO project_bid (bid_amount,project_id,contractor_id)
+VALUES (100, 1, 1);
+

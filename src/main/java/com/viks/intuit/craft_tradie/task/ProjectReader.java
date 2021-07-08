@@ -1,33 +1,42 @@
 package com.viks.intuit.craft_tradie.task;
 
-import com.viks.intuit.craft_tradie.dao.CustomerRepository;
 import com.viks.intuit.craft_tradie.dao.ProjectRepository;
-import com.viks.intuit.craft_tradie.entity.Customer;
 import com.viks.intuit.craft_tradie.entity.Project;
-import com.viks.intuit.craft_tradie.model.CustomerTask;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProjectReader implements ItemReader<CustomerTask> {
-    LinkedList<CustomerTask> customerTasks = new LinkedList<>();
 
-    {
-        customerTasks.add(new CustomerTask());
-    }
+@Component
+public class ProjectReader implements ItemReader<Project> {
 
-    @Autowired
+    private LinkedList<Project> customerTasks;
+
     private ProjectRepository projectRepository;
 
+    public ProjectReader(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     @Override
-    public CustomerTask read() throws Exception{
+    public Project read(){
 
-        List<Project> projects = projectRepository.findAll();
-        projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getCustomer().getCustomerName()));
-        System.out.println(">>>>>>>>>>>> IN reader");
-        return customerTasks.poll();
+        if(customerTasks==null){
+            customerTasks = new LinkedList<>();
+            List<Project> projects =
+                    projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
+            projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getBidExpiryDate()));
+            customerTasks.addAll(projects);
+            System.out.println(">>>>>>>>>>>> IN reader");
+        }
+        if(customerTasks.isEmpty()){
+            customerTasks =null;
+            return null;
+        }else{
+            return customerTasks.poll();
+        }
     }
 }
