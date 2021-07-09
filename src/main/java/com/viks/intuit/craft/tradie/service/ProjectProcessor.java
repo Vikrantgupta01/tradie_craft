@@ -6,6 +6,7 @@ import com.viks.intuit.craft.tradie.entity.ProjectBid;
 import lombok.AllArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,20 +16,21 @@ import java.util.List;
 @Component
 public class ProjectProcessor implements ItemProcessor<Project, ProjectBid> {
 
-    private ProjectBidRepository projectBidRepository;
+    private final ProjectBidRepository projectBidRepository;
 
     @Override
-    public ProjectBid process(Project customerTask) throws Exception{
-        System.out.println(">>>>>>>>>>>> IN processor");
-        List<ProjectBid>  bids = projectBidRepository.findAll();
-        Collections.sort(bids, Comparator.comparingInt(ProjectBid::getAmount).reversed());
-        System.out.println(bids.get(0).getAmount());
-        ProjectBid winningBid =  bids.get(0);
-        Project project = winningBid.getProject();
-        project.setWinnerBidId(winningBid.getId());
-
-
-        //  if no bidder for that project -  status update something so it woudnt part of next batch system.
-        return bids.get(0);
+    public ProjectBid process(final Project customerTask) throws Exception {
+        System.out.println("in proecessot" + customerTask.getId());
+        final List<ProjectBid> bids = this.projectBidRepository.findByProject_Id(customerTask.getId());
+        if (CollectionUtils.isEmpty(bids)) {
+            System.out.println("no bid is present for this project ");
+        } else {
+            Collections.sort(bids, Comparator.comparingInt(ProjectBid::getAmount).reversed());
+            final ProjectBid winningBid = bids.get(0);
+            final Project project = winningBid.getProject();
+            project.setWinnerBidId(winningBid.getId());
+            return bids.get(0);
+        }
+        return null;
     }
 }

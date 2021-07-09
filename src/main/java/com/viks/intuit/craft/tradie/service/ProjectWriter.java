@@ -13,11 +13,12 @@ import java.util.List;
 @Component
 public class ProjectWriter implements ItemWriter<ProjectBid> {
 
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
+
     @Override
-    public void write(List<? extends ProjectBid> list) throws Exception {
-        System.out.println(">>>>>>>>>>>> IN writer winer is "+list.get(0));
-        Project project = projectRepository.findById(1L).get();
+    public void write(final List<? extends ProjectBid> list) {
+        System.out.println(">>>>>>>>>>>> IN writer winer is " + list.get(0));
+        final Project project = this.projectRepository.findById(1L).get();
         System.out.println(project.getWinnerBidId());
     }
 }

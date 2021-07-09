@@ -33,7 +33,7 @@ public class BatchConfiguration {
     private final ProjectProcessor projectProcessor;
     private final ProjectWriter projectWriter;
 
-    @Scheduled(cron = "0 */1 * * * * ")
+    @Scheduled(cron = "0 */2 * * * * ")
     public void perform() throws Exception {
         final JobParameters params = new JobParametersBuilder()
                 .addString("JobID", String.valueOf(System.currentTimeMillis()))

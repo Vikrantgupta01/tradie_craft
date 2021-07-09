@@ -24,17 +24,16 @@ public class ProjectReader implements ItemReader<Project> {
     public Project read() {
         // todo:: clean code : access of service layer instead of direct jpa repositorty
         // todo:: use of optional
-        // save action plugin
-        // formatted and indentation
         // logging
         // exception handling
+        System.out.println(">>>>>>>>>>>> IN reader");
         if (this.customerTasks == null) {
             this.customerTasks = new LinkedList<>();
             final List<Project> projects =
                     this.projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
             //projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getBidExpiryDate()));
             this.customerTasks.addAll(projects);
-            //System.out.println(">>>>>>>>>>>> IN reader");
+
         }
         if (this.customerTasks.isEmpty()) {
             this.customerTasks = null;
