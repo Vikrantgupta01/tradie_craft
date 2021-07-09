@@ -27,6 +27,8 @@ public class ProjectProcessor implements ItemProcessor<Project, ProjectBid> {
         Project project = winningBid.getProject();
         project.setWinnerBidId(winningBid.getId());
 
+
+        //  if no bidder for that project -  status update something so it woudnt part of next batch system.
         return bids.get(0);
     }
 }

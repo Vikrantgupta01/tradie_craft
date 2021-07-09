@@ -14,28 +14,32 @@ public class ProjectReader implements ItemReader<Project> {
 
     private LinkedList<Project> customerTasks;
 
-    private ProjectRepository projectRepository;
+    private final ProjectRepository projectRepository;
 
-    public ProjectReader(ProjectRepository projectRepository) {
+    public ProjectReader(final ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     @Override
-    public Project read(){
-
-        if(customerTasks==null){
-            customerTasks = new LinkedList<>();
-            List<Project> projects =
-                    projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
-            projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getBidExpiryDate()));
-            customerTasks.addAll(projects);
-            System.out.println(">>>>>>>>>>>> IN reader");
+    public Project read() {
+        // todo:: clean code : access of service layer instead of direct jpa repositorty
+        // todo:: use of optional
+        // save action plugin
+        // formatted and indentation
+        // logging
+        // exception handling
+        if (this.customerTasks == null) {
+            this.customerTasks = new LinkedList<>();
+            final List<Project> projects =
+                    this.projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
+            //projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getBidExpiryDate()));
+            this.customerTasks.addAll(projects);
+            //System.out.println(">>>>>>>>>>>> IN reader");
         }
-        if(customerTasks.isEmpty()){
-            customerTasks =null;
+        if (this.customerTasks.isEmpty()) {
+            this.customerTasks = null;
             return null;
-        }else{
-            return customerTasks.poll();
         }
+        return this.customerTasks.poll();
     }
 }

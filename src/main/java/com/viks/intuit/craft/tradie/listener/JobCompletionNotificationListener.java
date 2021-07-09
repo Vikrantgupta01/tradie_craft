@@ -19,10 +19,9 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     }
 
     @Override
-    public void afterJob(JobExecution jobExecution) {
+    public void afterJob(final JobExecution jobExecution) {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
             LOGGER.info("!!! JOB FINISHED! Time to verify the results");
-
         }
     }
 }

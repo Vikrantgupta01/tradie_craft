@@ -1,8 +1,8 @@
 package com.viks.intuit.craft.tradie.config;
 
+import com.viks.intuit.craft.tradie.entity.Project;
 import com.viks.intuit.craft.tradie.entity.ProjectBid;
 import com.viks.intuit.craft.tradie.listener.JobCompletionNotificationListener;
-import com.viks.intuit.craft.tradie.entity.Project;
 import com.viks.intuit.craft.tradie.service.ProjectProcessor;
 import com.viks.intuit.craft.tradie.service.ProjectReader;
 import com.viks.intuit.craft.tradie.service.ProjectWriter;
@@ -25,26 +25,25 @@ import org.springframework.scheduling.annotation.Scheduled;
 @AllArgsConstructor
 public class BatchConfiguration {
 
-    private JobLauncher jobLauncher;
-    private JobBuilderFactory jobBuilderFactory;
-    private StepBuilderFactory stepBuilderFactory;
-    private JobCompletionNotificationListener listener;
-    private ProjectReader projectReader;
-    private ProjectProcessor projectProcessor;
-    private ProjectWriter projectWriter;
+    private final JobLauncher jobLauncher;
+    private final JobBuilderFactory jobBuilderFactory;
+    private final StepBuilderFactory stepBuilderFactory;
+    private final JobCompletionNotificationListener listener;
+    private final ProjectReader projectReader;
+    private final ProjectProcessor projectProcessor;
+    private final ProjectWriter projectWriter;
 
     @Scheduled(cron = "0 */1 * * * * ")
-    public void perform() throws Exception
-    {
-        JobParameters params = new JobParametersBuilder()
+    public void perform() throws Exception {
+        final JobParameters params = new JobParametersBuilder()
                 .addString("JobID", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
-        jobLauncher.run(importUserJob(listener, step1()), params);
+        this.jobLauncher.run(this.importUserJob(this.listener, this.step1()), params);
     }
 
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
-        return jobBuilderFactory.get("importUserJob")
+    public Job importUserJob(final JobCompletionNotificationListener listener, final Step step1) {
+        return this.jobBuilderFactory.get("importUserJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
@@ -54,8 +53,8 @@ public class BatchConfiguration {
 
     @Bean
     public Step step1() {
-        return stepBuilderFactory.get("step1")
-                .<Project, ProjectBid> chunk(10)
+        return this.stepBuilderFactory.get("step1")
+                .<Project, ProjectBid>chunk(10)
                 .reader(this.projectReader)
                 .processor(this.projectProcessor)
                 .writer(this.projectWriter)
