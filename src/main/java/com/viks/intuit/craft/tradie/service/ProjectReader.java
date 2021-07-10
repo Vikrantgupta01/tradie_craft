@@ -2,6 +2,7 @@ package com.viks.intuit.craft.tradie.service;
 
 import com.viks.intuit.craft.tradie.dao.ProjectRepository;
 import com.viks.intuit.craft.tradie.entity.Project;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 
 @Component
+@Slf4j
 public class ProjectReader implements ItemReader<Project> {
 
     private LinkedList<Project> customerTasks;
@@ -24,14 +26,12 @@ public class ProjectReader implements ItemReader<Project> {
     public Project read() {
         // todo:: clean code : access of service layer instead of direct jpa repositorty
         // todo:: use of optional
-        // logging
         // exception handling
-        System.out.println(">>>>>>>>>>>> IN reader");
         if (this.customerTasks == null) {
+            log.info("Started batch job to fetch pending project");
             this.customerTasks = new LinkedList<>();
             final List<Project> projects =
                     this.projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
-            //projects.stream().forEach(x-> System.out.println(x.getId() + " " +x.getBidExpiryDate()));
             this.customerTasks.addAll(projects);
 
         }

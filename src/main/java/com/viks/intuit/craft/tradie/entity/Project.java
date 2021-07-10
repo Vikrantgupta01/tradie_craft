@@ -1,12 +1,14 @@
 package com.viks.intuit.craft.tradie.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "project")
 @Data
+@ToString
 public class Project {
 
     @Id
