@@ -15,9 +15,11 @@ public class ProjectBid {
     @GeneratedValue
     private Long id;
 
-
     @Column(name = "bid_amount")
     private int amount;
+
+    @Column(name = "bid_type")
+    private BidType bidType;
 
     @ManyToOne(targetEntity = Project.class)
     @JoinColumn(name = "project_id")

@@ -3,7 +3,6 @@ package com.viks.intuit.craft.tradie.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 @Entity
 @Table(name = "project")
@@ -20,11 +19,8 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "start_date")
-    private Time startDate;
-
-    @Column(name = "end_date")
-    private Time endDate;
+    @Column(name = "expected_time")
+    private Integer expectedTime;
 
     @Column(name = "bid_expiry_date")
     private java.time.LocalDateTime bidExpiryDate;
