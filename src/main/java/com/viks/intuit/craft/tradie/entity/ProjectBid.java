@@ -25,7 +25,7 @@ public class ProjectBid {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 

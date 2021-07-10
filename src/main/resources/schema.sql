@@ -38,20 +38,25 @@ foreign key(project_id)references project(id)
 );
 
 
-INSERT INTO customer(name) VALUES ('India');
-INSERT INTO contractor(name) VALUES ('contractor');
+INSERT INTO customer(name) VALUES ('Radisson hotel');
+
+INSERT INTO contractor(name) VALUES ('Super cleaner service');
+INSERT INTO contractor(name) VALUES ('Sydney cleaners');
+INSERT INTO contractor(name) VALUES ('Awesome cleaners');
+
 
 INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
-VALUES ('test -11', 'test -11', 4,1,
-PARSEDATETIME('08 Jul 2021, 17:59:58 AM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+VALUES ('Carpet cleaning for 24 rooms', 'Need service to clean 24 rooms carpet', 4,1,
+PARSEDATETIME('09 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
 
-INSERT INTO project(title, description, expected_time, customer_id, bid_expiry_date)
-VALUES ('test -112323', 'test -133331', 5, 1,
-PARSEDATETIME('08 Jul 2021, 17:59:58 AM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
+VALUES ('Garden cleaning', 'lawn mower service ', 8,1,
+PARSEDATETIME('09 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+
 
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
 VALUES (100, 1, 'FIXED', 1);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
-VALUES (150, 1, 'FIXED', 1);
+VALUES (150, 1, 'FIXED', 2);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
-VALUES (26, 1, 'HOURLY', 1);
+VALUES (24, 1, 'HOURLY', 3);

@@ -1,13 +1,16 @@
 package com.viks.intuit.craft.tradie.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "project")
-@Data
+@Getter
+@Setter
 public class Project {
 
     @Id
@@ -27,7 +30,7 @@ public class Project {
     private ProjectStatus status;
 
     @Column(name = "bid_expiry_date")
-    private java.time.LocalDateTime bidExpiryDate;
+    private LocalDateTime bidExpiryDate;
 
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "customer_id")
