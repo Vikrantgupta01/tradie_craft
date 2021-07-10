@@ -29,10 +29,8 @@ public class ProjectProcessor implements ItemProcessor<Project, BiddingResult> {
             customerTask.setStatus(ProjectStatus.PENDING);
             return BiddingResult.builder().projectTitle(customerTask.getTitle()).build();
         } else {
-            final ProjectBid winningBid = this.getWinnerBid(bids);
-            final Project project = winningBid.getProject();
-            project.setWinnerBidId(winningBid.getId());
-            project.setStatus(ProjectStatus.CONFIRM);
+            final ProjectBid winningBid = this.getWinnerBid(bids, customerTask.getExpectedTime());
+            this.confirmProject(customerTask, winningBid.getId());
             return BiddingResult.builder()
                     .projectTitle(customerTask.getTitle())
                     .bidAmount(winningBid.getAmount())
@@ -43,18 +41,23 @@ public class ProjectProcessor implements ItemProcessor<Project, BiddingResult> {
         }
     }
 
-    private ProjectBid getWinnerBid(final List<ProjectBid> bids) {
+    ProjectBid getWinnerBid(final List<ProjectBid> bids, final Integer projectTime) {
         Collections.sort(bids, (e1, e2) -> {
             if (e1.getBidType().equals(e2.getBidType())) {
                 return e1.getAmount() - e2.getAmount();
             } else {
                 if (e1.getBidType() == BidType.FIXED) {
-                    return e1.getAmount() - e2.getAmount() * e2.getProject().getExpectedTime();
+                    return e1.getAmount() - e2.getAmount() * projectTime;
                 } else {
-                    return e1.getAmount() * e1.getProject().getExpectedTime() - e2.getAmount();
+                    return e1.getAmount() * projectTime - e2.getAmount();
                 }
             }
         });
         return bids.get(0);
+    }
+
+    void confirmProject(final Project project, final Long winningBidId) {
+        project.setWinnerBidId(winningBidId);
+        project.setStatus(ProjectStatus.CONFIRM);
     }
 }
