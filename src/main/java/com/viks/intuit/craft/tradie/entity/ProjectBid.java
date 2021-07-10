@@ -1,14 +1,14 @@
 package com.viks.intuit.craft.tradie.entity;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "project_bid")
-@Data
-@ToString
+@Getter
+@Setter
 public class ProjectBid {
 
     @Id
@@ -21,11 +21,11 @@ public class ProjectBid {
     @Column(name = "bid_type")
     private BidType bidType;
 
-    @ManyToOne(targetEntity = Project.class)
+    @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @ManyToOne(targetEntity = Contractor.class)
+    @ManyToOne
     @JoinColumn(name = "contractor_id")
     private Contractor contractor;
 

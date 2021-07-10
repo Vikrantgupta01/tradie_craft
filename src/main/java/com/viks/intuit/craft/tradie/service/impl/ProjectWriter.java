@@ -1,4 +1,4 @@
-package com.viks.intuit.craft.tradie.service;
+package com.viks.intuit.craft.tradie.service.impl;
 
 import com.viks.intuit.craft.tradie.model.BiddingResult;
 import lombok.AllArgsConstructor;
