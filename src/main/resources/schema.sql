@@ -20,6 +20,7 @@ CREATE TABLE project (
   customer_id BIGINT NOT NULL ,
   bid_expiry_date TIMESTAMP NOT NULL ,
   winner_bid_id BIGINT ,
+  status ENUM('NEW', 'CONFIRM', 'PENDING') default 'NEW',
   PRIMARY KEY (id),
 foreign key(customer_id)references customer(id)
 );
@@ -50,7 +51,6 @@ PARSEDATETIME('08 Jul 2021, 17:59:58 AM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
 
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
 VALUES (100, 1, 'FIXED', 1);
-
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
 VALUES (150, 1, 'FIXED', 1);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)

@@ -2,10 +2,12 @@ package com.viks.intuit.craft.tradie.service;
 
 import com.viks.intuit.craft.tradie.dao.ProjectRepository;
 import com.viks.intuit.craft.tradie.entity.Project;
+import com.viks.intuit.craft.tradie.entity.ProjectStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ProjectReader implements ItemReader<Project> {
             log.info("Started batch job to fetch pending project");
             this.customerTasks = new LinkedList<>();
             final List<Project> projects =
-                    this.projectRepository.findProjectsByBidExpiryDateIsBeforeAndWinnerBidIdIsNull(java.time.LocalDateTime.now());
+                    this.projectRepository.findProjectsByBidExpiryDateIsBeforeAndStatus(LocalDateTime.now(), ProjectStatus.NEW);
             this.customerTasks.addAll(projects);
 
         }

@@ -4,6 +4,8 @@ import com.viks.intuit.craft.tradie.dao.ProjectBidRepository;
 import com.viks.intuit.craft.tradie.entity.BidType;
 import com.viks.intuit.craft.tradie.entity.Project;
 import com.viks.intuit.craft.tradie.entity.ProjectBid;
+import com.viks.intuit.craft.tradie.entity.ProjectStatus;
+import com.viks.intuit.craft.tradie.model.BiddingResult;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -16,18 +18,19 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 @Slf4j
-public class ProjectProcessor implements ItemProcessor<Project, ProjectBid> {
+public class ProjectProcessor implements ItemProcessor<Project, BiddingResult> {
 
     private final ProjectBidRepository projectBidRepository;
 
     @Override
-    public ProjectBid process(final Project customerTask) {
+    public BiddingResult process(final Project customerTask) {
 
         log.info("Processing project {}", customerTask);
         final List<ProjectBid> bids = this.projectBidRepository.findByProject_Id(customerTask.getId());
         if (CollectionUtils.isEmpty(bids)) {
             log.warn("no bid is present for this project id {}", customerTask.getId());
-
+            customerTask.setStatus(ProjectStatus.PENDING);
+            return new BiddingResult(customerTask.getTitle(), null, null, null, null);
         } else {
             Collections.sort(bids, (e1, e2) -> {
                 if (e1.getBidType().equals(e2.getBidType())) {
@@ -43,8 +46,9 @@ public class ProjectProcessor implements ItemProcessor<Project, ProjectBid> {
             final ProjectBid winningBid = bids.get(0);
             final Project project = winningBid.getProject();
             project.setWinnerBidId(winningBid.getId());
-            return bids.get(0);
+            project.setStatus(ProjectStatus.CONFIRM);
+            return new BiddingResult(customerTask.getTitle(), customerTask.getCustomer().getName(),
+                    winningBid.getContractor().getName(), winningBid.getAmount(), winningBid.getBidType());
         }
-        return null;
     }
 }

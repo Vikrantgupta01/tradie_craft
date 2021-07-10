@@ -1,8 +1,8 @@
 package com.viks.intuit.craft.tradie.config;
 
 import com.viks.intuit.craft.tradie.entity.Project;
-import com.viks.intuit.craft.tradie.entity.ProjectBid;
 import com.viks.intuit.craft.tradie.listener.JobCompletionNotificationListener;
+import com.viks.intuit.craft.tradie.model.BiddingResult;
 import com.viks.intuit.craft.tradie.service.ProjectProcessor;
 import com.viks.intuit.craft.tradie.service.ProjectReader;
 import com.viks.intuit.craft.tradie.service.ProjectWriter;
@@ -54,7 +54,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1() {
         return this.stepBuilderFactory.get("step1")
-                .<Project, ProjectBid>chunk(10)
+                .<Project, BiddingResult>chunk(10)
                 .reader(this.projectReader)
                 .processor(this.projectProcessor)
                 .writer(this.projectWriter)

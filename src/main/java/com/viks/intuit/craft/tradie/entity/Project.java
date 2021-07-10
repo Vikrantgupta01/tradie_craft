@@ -24,6 +24,9 @@ public class Project {
     @Column(name = "expected_time")
     private Integer expectedTime;
 
+    @Column(name = "status")
+    private ProjectStatus status;
+
     @Column(name = "bid_expiry_date")
     private java.time.LocalDateTime bidExpiryDate;
 
