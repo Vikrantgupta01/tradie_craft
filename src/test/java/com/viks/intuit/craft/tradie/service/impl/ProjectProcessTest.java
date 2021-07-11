@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProjectProcessTest {
 
-    ProjectProcessor projectProcessor = new ProjectProcessor();
+    private final ProjectProcessor projectProcessor = new ProjectProcessor();
 
     @Test
     public void testWinnerBid_FIXED_FIXED() {

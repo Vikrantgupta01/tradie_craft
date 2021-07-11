@@ -38,12 +38,12 @@ public class BatchConfiguration {
         final JobParameters params = new JobParametersBuilder()
                 .addString("JobID", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
-        this.jobLauncher.run(this.importUserJob(this.listener, this.step1()), params);
+        this.jobLauncher.run(this.projectBidProcessorJob(this.listener, this.bidProcessingStep()), params);
     }
 
     @Bean
-    public Job importUserJob(final JobCompletionNotificationListener listener, final Step step1) {
-        return this.jobBuilderFactory.get("importUserJob")
+    public Job projectBidProcessorJob(final JobCompletionNotificationListener listener, final Step step1) {
+        return this.jobBuilderFactory.get("projectBidProcessorJob")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(step1)
@@ -52,8 +52,8 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1() {
-        return this.stepBuilderFactory.get("step1")
+    public Step bidProcessingStep() {
+        return this.stepBuilderFactory.get("bidProcessingStep")
                 .<Project, BiddingResult>chunk(10)
                 .reader(this.projectReader)
                 .processor(this.projectProcessor)
