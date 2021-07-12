@@ -16,7 +16,7 @@ public class ProjectBid {
     private Long id;
 
     @Column(name = "bid_amount")
-    private int amount;
+    private double amount;
 
     @Column(name = "bid_type")
     private BidType bidType;

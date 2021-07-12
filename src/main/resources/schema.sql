@@ -28,13 +28,14 @@ foreign key(customer_id)references customer(id)
 
 CREATE TABLE project_bid (
   id   BIGINT NOT NULL AUTO_INCREMENT,
-  bid_amount int NOT NULL,
+  bid_amount decimal NOT NULL,
   bid_type   ENUM('FIXED', 'HOURLY'),
   project_id bigint  NOT NULL,
   contractor_id bigint  NOT NULL,
   PRIMARY KEY (id),
 foreign key(contractor_id)references contractor(id),
-foreign key(project_id)references project(id)
+foreign key(project_id)references project(id),
+unique key(project_id,contractor_id)
 );
 
 
@@ -55,8 +56,8 @@ PARSEDATETIME('09 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
 
 
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
-VALUES (100, 1, 'FIXED', 1);
+VALUES (99.00, 1, 'FIXED', 1);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
-VALUES (150, 1, 'FIXED', 2);
+VALUES (98.75, 1, 'FIXED', 2);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
-VALUES (24, 1, 'HOURLY', 3);
+VALUES (24.50, 1, 'HOURLY', 3);

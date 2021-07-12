@@ -11,6 +11,6 @@ public class BiddingResult {
     private String projectTitle;
     private String customerName;
     private String contractorName;
-    private Integer bidAmount;
+    private Double bidAmount;
     private BidType bidType;
 }

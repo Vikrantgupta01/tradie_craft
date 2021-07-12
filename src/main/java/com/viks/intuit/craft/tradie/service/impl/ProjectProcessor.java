@@ -44,12 +44,12 @@ public class ProjectProcessor implements ItemProcessor<Project, BiddingResult> {
     ProjectBid getWinnerBid(final List<ProjectBid> bids, final Integer projectTime) {
         Collections.sort(bids, (e1, e2) -> {
             if (e1.getBidType().equals(e2.getBidType())) {
-                return e1.getAmount() - e2.getAmount();
+                return e1.getAmount() > e2.getAmount() ? 1 : -1;
             } else {
                 if (e1.getBidType() == BidType.FIXED) {
-                    return e1.getAmount() - e2.getAmount() * projectTime;
+                    return e1.getAmount() > e2.getAmount() * projectTime ? 1 : -1;
                 } else {
-                    return e1.getAmount() * projectTime - e2.getAmount();
+                    return e1.getAmount() * projectTime > e2.getAmount() ? 1 : -1;
                 }
             }
         });
