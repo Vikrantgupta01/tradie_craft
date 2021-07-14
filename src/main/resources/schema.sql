@@ -48,11 +48,20 @@ INSERT INTO contractor(name) VALUES ('Awesome cleaners');
 
 INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
 VALUES ('Carpet cleaning for 24 rooms', 'Need service to clean 24 rooms carpet', 4,1,
-PARSEDATETIME('09 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+PARSEDATETIME('14 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
 
 INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
 VALUES ('Garden cleaning', 'lawn mower service ', 8,1,
-PARSEDATETIME('09 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+PARSEDATETIME('14 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+
+
+INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
+VALUES ('Lease cleaning', 'Lease cleaning service ', 8,1,
+PARSEDATETIME('14 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
+
+INSERT INTO project(title, description,expected_time ,customer_id, bid_expiry_date)
+VALUES ('BMW servicing', 'BMW servicing ', 8,1,
+PARSEDATETIME('14 Jul 2021, 19:00:00 PM', 'dd MMM yyyy, hh:mm:ss a', 'en'));
 
 
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
@@ -61,3 +70,15 @@ INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
 VALUES (98.75, 1, 'FIXED', 2);
 INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
 VALUES (24.50, 1, 'HOURLY', 3);
+
+
+INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
+VALUES (99.00, 3, 'FIXED', 1);
+INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
+VALUES (98.75, 3, 'FIXED', 2);
+INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
+VALUES (100.50, 3, 'FIXED', 3);
+
+
+INSERT INTO project_bid(bid_amount, project_id,bid_type, contractor_id)
+VALUES (1.00, 4, 'FIXED', 1);

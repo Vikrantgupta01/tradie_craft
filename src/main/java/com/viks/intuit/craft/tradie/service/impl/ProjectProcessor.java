@@ -22,7 +22,7 @@ public class ProjectProcessor implements ItemProcessor<Project, BiddingResult> {
     @Override
     public BiddingResult process(final Project customerTask) {
 
-        log.info("Processing project {}", customerTask);
+        log.info("Processing project {}", customerTask.getTitle());
         final List<ProjectBid> bids = customerTask.getBids();
         if (CollectionUtils.isEmpty(bids)) {
             log.warn("No bid is present for this project id {}", customerTask.getId());

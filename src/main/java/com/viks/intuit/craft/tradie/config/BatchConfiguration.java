@@ -54,7 +54,7 @@ public class BatchConfiguration {
     @Bean
     public Step bidProcessingStep() {
         return this.stepBuilderFactory.get("bidProcessingStep")
-                .<Project, BiddingResult>chunk(10)
+                .<Project, BiddingResult>chunk(100)
                 .reader(this.projectReader)
                 .processor(this.projectProcessor)
                 .writer(this.projectWriter)
